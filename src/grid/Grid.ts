@@ -66,14 +66,14 @@ export class Grid {
     }
 
     private addClickListener() {
-      this.canvas.addEventListener('click', (e) => {
-        const rect = this.canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cellX = Math.floor((x - this.margin) / this.cellSize); // Adjust for margin
-        const cellY = Math.floor((y - this.margin) / this.cellSize); // Adjust for margin
-        this.grid[cellY][cellX] = !this.grid[cellY][cellX];
-        this.drawGrid();
-      });
-    }
+        this.canvas.addEventListener('click', (e) => {
+          const rect = this.canvas.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const cellX = Math.floor((x - this.margin) / this.cellSize); // Adjust for margin
+          const cellY = Math.floor((y - this.margin) / this.cellSize); // Adjust for margin
+          this.grid[cellY][cellX] = !this.grid[cellY][cellX]; // Toggle the cell state
+          this.drawGrid();
+        });
+      }      
 }
