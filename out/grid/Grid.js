@@ -16,22 +16,28 @@ class Grid {
         this.cellSize = 20;
         this.numRows = (this.canvas.height - 2 * this.margin) / this.cellSize;
         this.numCols = (this.canvas.width - 2 * this.margin) / this.cellSize;
-        this.initGrid();
-        this.drawGrid();
+        this.initEmptyGrid();
+        this.drawGridForGeneration();
         this.addClickListener();
     }
-    getGrid() {
-        return this.grid;
+    getCurrentGeneration() {
+        return this.generation;
+    }
+    getNumRows() {
+        return this.numRows;
+    }
+    getNumCols() {
+        return this.numCols;
     }
     // Setter to update the state of the grid
-    setGrid(newGrid) {
-        this.grid = newGrid;
-        this.drawGrid(); // Update the display after changing the grid
+    setGridForGeneration(newGrid) {
+        this.generation = newGrid;
+        this.drawGridForGeneration(); // Update the display after changing the generation
     }
-    initGrid() {
-        this.grid = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
+    initEmptyGrid() {
+        this.generation = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
     }
-    drawGrid() {
+    drawGridForGeneration() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.strokeStyle = 'black';
         for (let x = this.margin; x <= this.canvas.width - this.margin; x += this.cellSize) {
@@ -50,7 +56,7 @@ class Grid {
         }
         for (let i = 0; i < this.numRows; i++) {
             for (let j = 0; j < this.numCols; j++) {
-                if (this.grid[i][j]) {
+                if (this.generation[i][j]) {
                     this.ctx.fillStyle = 'black';
                     this.ctx.fillRect(j * this.cellSize + this.margin, i * this.cellSize + this.margin, this.cellSize, this.cellSize);
                 }
@@ -64,8 +70,8 @@ class Grid {
             const y = e.clientY - rect.top;
             const cellX = Math.floor((x - this.margin) / this.cellSize);
             const cellY = Math.floor((y - this.margin) / this.cellSize);
-            this.grid[cellY][cellX] = !this.grid[cellY][cellX]; // Toggle the cell state
-            this.drawGrid();
+            this.generation[cellY][cellX] = !this.generation[cellY][cellX]; // Toggle the cell state
+            this.drawGridForGeneration();
         });
     }
 }

@@ -1,7 +1,9 @@
+import { Generation } from '../types/Generation'
+
 export class Grid {
     private canvas: HTMLCanvasElement;
     private ctx: CanvasRenderingContext2D;
-    private grid: boolean[][];
+    private generation: Generation;
     private cellSize: number;
     private numRows: number;
     private numCols: number;
@@ -21,13 +23,13 @@ export class Grid {
       this.cellSize = 20;
       this.numRows = (this.canvas.height - 2 * this.margin) / this.cellSize; 
       this.numCols = (this.canvas.width - 2 * this.margin) / this.cellSize;  
-      this.initGrid();
-      this.drawGrid();
+      this.initEmptyGrid();
+      this.drawGridForGeneration();
       this.addClickListener();
     }
 
-    public getGrid(): boolean[][] {
-        return this.grid;
+    public getCurrentGeneration(): Generation {
+        return this.generation;
     }
 
     public getNumRows(): number {
@@ -39,16 +41,16 @@ export class Grid {
     }
 
     // Setter to update the state of the grid
-    public setGrid(newGrid: boolean[][]): void {
-        this.grid = newGrid;
-        this.drawGrid(); // Update the display after changing the grid
+    public setGridForGeneration(newGrid: boolean[][]): void {
+        this.generation = newGrid;
+        this.drawGridForGeneration(); // Update the display after changing the generation
     }
 
-    private initGrid() {
-      this.grid = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
+    private initEmptyGrid() {
+      this.generation = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
     }
 
-    private drawGrid() {
+    private drawGridForGeneration() {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
       this.ctx.strokeStyle = 'black';
 
@@ -70,7 +72,7 @@ export class Grid {
 
       for (let i = 0; i < this.numRows; i++) {
         for (let j = 0; j < this.numCols; j++) {
-          if (this.grid[i][j]) {
+          if (this.generation[i][j]) {
             this.ctx.fillStyle = 'black';
             this.ctx.fillRect(
               j * this.cellSize + this.margin,  
@@ -90,8 +92,8 @@ export class Grid {
           const y = e.clientY - rect.top;
           const cellX = Math.floor((x - this.margin) / this.cellSize);  
           const cellY = Math.floor((y - this.margin) / this.cellSize);  
-          this.grid[cellY][cellX] = !this.grid[cellY][cellX]; // Toggle the cell state
-          this.drawGrid();
+          this.generation[cellY][cellX] = !this.generation[cellY][cellX]; // Toggle the cell state
+          this.drawGridForGeneration();
         });
       }      
 }
