@@ -26,6 +26,24 @@ export class Grid {
       this.addClickListener();
     }
 
+    public getGrid(): boolean[][] {
+        return this.grid;
+    }
+
+    public getNumRows(): number {
+        return this.numRows;
+    }
+
+    public getNumCols(): number {
+        return this.numCols;
+    }
+
+    // Setter to update the state of the grid
+    public setGrid(newGrid: boolean[][]): void {
+        this.grid = newGrid;
+        this.drawGrid(); // Update the display after changing the grid
+    }
+
     private initGrid() {
       this.grid = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
     }
