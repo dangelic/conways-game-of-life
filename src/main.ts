@@ -8,11 +8,13 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: true, // Allow Node.js integration in the renderer process
+      contextIsolation: false, // Disable context isolation for simpler integration
       preload: path.join(__dirname, 'preload.js')
-    }
+    },
   });
 
-  mainWindow.loadFile(path.join(__dirname, '/..', 'index.html'));
+  mainWindow.loadFile(path.join(__dirname, '..', 'index.html'));
 
   mainWindow.on('closed', () => {
     mainWindow = null;

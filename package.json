@@ -2,6 +2,7 @@
   "name": "conways-game-of-life",
   "version": "1.0.0",
   "description": "Electron App for Conways Game of Life",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "compile": "npx tsc --project tsconfig.json",
