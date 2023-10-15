@@ -21,7 +21,7 @@ export class World {
         this.canvas.style.transform = 'translate(-50%, -50%)';
         document.body.appendChild(this.canvas);
         this.ctx = this.canvas.getContext('2d');
-        this.cellSize = 20;
+        this.cellSize = 10;
         this.numRows = (this.canvas.height - 2 * this.margin) / this.cellSize;
         this.numCols = (this.canvas.width - 2 * this.margin) / this.cellSize;
         this.initEmptyWorld();
