@@ -1,3 +1,4 @@
+import { CellCountsStatistics } from "../statistics/CellCountsStatistics";
 import { World } from "../world/World";
 import { Rules } from "./Rules";
 
@@ -6,12 +7,14 @@ export class GenerationLoop {
     private stateOn: boolean;
     private delay: number; // ms
     private generationCount: number;
+    private cellCountsStatistics: CellCountsStatistics;
 
-    constructor(world: World) {
+    constructor(world: World, cellCountsStatistics: CellCountsStatistics) {
         this.world = world;
         this.stateOn = true;
         this.delay = 200;
         this.generationCount = 0;
+        this.cellCountsStatistics = cellCountsStatistics;
     }
 
     public setState(isOn: boolean): void {
@@ -43,8 +46,8 @@ export class GenerationLoop {
 
     private generateNextGeneration(): void {
         let currentGeneration = this.world.getCurrentGeneration();
-        let nextGeneration = Rules.determineNextGeneration(currentGeneration)
-
-        this.world.setWorld(nextGeneration)
+        let nextGeneration = Rules.determineNextGeneration(currentGeneration);
+        this.world.setWorld(nextGeneration);
+        this.cellCountsStatistics.updateGenerations(currentGeneration, nextGeneration);
     }
 }

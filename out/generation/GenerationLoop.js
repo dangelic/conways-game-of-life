@@ -3,11 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenerationLoop = void 0;
 const Rules_1 = require("./Rules");
 class GenerationLoop {
-    constructor(world) {
+    constructor(world, cellCountsStatistics) {
         this.world = world;
         this.stateOn = true;
         this.delay = 200;
         this.generationCount = 0;
+        this.cellCountsStatistics = cellCountsStatistics;
     }
     setState(isOn) {
         this.stateOn = isOn;
@@ -34,6 +35,7 @@ class GenerationLoop {
         let currentGeneration = this.world.getCurrentGeneration();
         let nextGeneration = Rules_1.Rules.determineNextGeneration(currentGeneration);
         this.world.setWorld(nextGeneration);
+        this.cellCountsStatistics.updateGenerations(currentGeneration, nextGeneration);
     }
 }
 exports.GenerationLoop = GenerationLoop;

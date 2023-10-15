@@ -1,23 +1,15 @@
-import { World } from '../world/World';
-import { RandomSeed } from '../seed/RandomSeed';
-import { GenerationLoop } from '../generation/GenerationLoop';
-
-export class ElementsGUI {
-    private randomSpawnChance: number;
-    private world: World;
-    private generationLoop: GenerationLoop;
-    private stateOn: boolean;
-    private comparisonModeIsOn: boolean;
-
-    constructor(world: World, generationLoop: GenerationLoop) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InteractiveElementsGUI = void 0;
+const RandomSeed_1 = require("../seed/RandomSeed");
+class InteractiveElementsGUI {
+    constructor(world, generationLoop, cellCountsStatistics) {
         this.world = world;
         this.generationLoop = generationLoop;
         this.randomSpawnChance = 0.2; // Set the initial value for randomSpawnChance
         this.stateOn = false;
         this.comparisonModeIsOn = false;
-    }
-
-    public loadGUI() {
+        this.cellCountsStatistics = cellCountsStatistics;
         this.createSpawnChanceSlider();
         this.createRandomSeedButton();
         this.createStartStopButton();
@@ -25,19 +17,18 @@ export class ElementsGUI {
         this.createSpeedControl();
         this.createClearButton();
     }
-
-    private createClearButton() {
+    createClearButton() {
         // Create a button to clear the world
         const button = document.createElement('button');
         button.textContent = 'Clear';
         button.addEventListener('click', () => {
             this.world.initEmptyWorld();
             this.generationLoop.setGenerationCount(0);
+            this.cellCountsStatistics.resetCounters();
         });
         document.body.appendChild(button);
     }
-
-    private createToggleComparisonButton() {
+    createToggleComparisonButton() {
         // Create a button to start/stop comparison mode
         const button = document.createElement('button');
         button.textContent = 'Comparison Mode';
@@ -45,27 +36,27 @@ export class ElementsGUI {
             if (this.comparisonModeIsOn) {
                 this.comparisonModeIsOn = false;
                 this.world.setComparisonToggle(false);
-            } else {
+            }
+            else {
                 this.comparisonModeIsOn = true;
                 this.world.setComparisonToggle(true);
             }
         });
         document.body.appendChild(button);
     }
-
-    private createRandomSeedButton() {
+    createRandomSeedButton() {
         // Create a button to randomize Generation 0
         const button = document.createElement('button');
         button.textContent = 'Randomize Gen 0';
         button.addEventListener('click', () => {
-            const randomSeed = new RandomSeed(this.randomSpawnChance);
+            const randomSeed = new RandomSeed_1.RandomSeed(this.randomSpawnChance);
             this.world.setCurrentGenerationCount(0);
+            this.cellCountsStatistics.resetCounters();
             randomSeed.seedGenerationZero(this.world);
         });
         document.body.appendChild(button);
     }
-
-    private createSpawnChanceSlider() {
+    createSpawnChanceSlider() {
         const slider = document.createElement('input');
         slider.type = 'range';
         slider.min = '0.05';
@@ -78,8 +69,7 @@ export class ElementsGUI {
         });
         document.body.appendChild(slider);
     }
-
-    private createStartStopButton() {
+    createStartStopButton() {
         // Create a button to start/stop the generation loop
         const button = document.createElement('button');
         button.textContent = 'Start/Stop';
@@ -87,7 +77,8 @@ export class ElementsGUI {
             if (this.stateOn) {
                 this.stateOn = false; // Stop the loop
                 this.generationLoop.setState(false);
-            } else {
+            }
+            else {
                 this.stateOn = true; // Start the loop
                 this.generationLoop.setState(true);
                 this.generationLoop.startGenerationLoop(); // Start the loop
@@ -95,12 +86,10 @@ export class ElementsGUI {
         });
         document.body.appendChild(button);
     }
-
-    private createSpeedControl() {
+    createSpeedControl() {
         // Create a speed control with plus and minus buttons
         const speedControl = document.createElement('div');
         speedControl.classList.add('speed-control');
-
         const plusButton = document.createElement('button');
         plusButton.textContent = '+';
         plusButton.addEventListener('click', () => {
@@ -111,7 +100,6 @@ export class ElementsGUI {
                 this.generationLoop.setDelay(newDelay);
             }
         });
-
         const minusButton = document.createElement('button');
         minusButton.textContent = '-';
         minusButton.addEventListener('click', () => {
@@ -122,9 +110,9 @@ export class ElementsGUI {
                 this.generationLoop.setDelay(newDelay);
             }
         });
-
         speedControl.appendChild(plusButton);
         speedControl.appendChild(minusButton);
         document.body.appendChild(speedControl);
     }
 }
+exports.InteractiveElementsGUI = InteractiveElementsGUI;
