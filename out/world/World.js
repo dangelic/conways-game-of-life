@@ -58,7 +58,7 @@ class World {
     }
     drawWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.strokeStyle = 'black';
+        this.ctx.strokeStyle = 'red';
         for (let x = this.margin; x <= this.canvas.width - this.margin; x += this.cellSize) {
             const pixelX = Math.round(x);
             this.ctx.beginPath();
@@ -87,7 +87,7 @@ class World {
         // Add a counter for generations
         this.ctx.font = 'bold 50px Arial';
         this.ctx.fillStyle = 'red';
-        this.ctx.fillText(`Generation: ${this.currentGenerationCount}`, 10, this.canvas.height - 20);
+        this.ctx.fillText(`Gen ${this.currentGenerationCount}`, 10, this.canvas.height - 20);
     }
     drawGenerationComparison() {
         for (let i = 0; i < this.numRows; i++) {
