@@ -1,7 +1,7 @@
 # Convays' Game of Life (Life)
 This is my simple implementation of Life using Electron.js. 
 
-![gameplay]((https://github.com/dangelic/conways-game-of-life/blob/main/gameplay.png)
+![gameplay](https://github.com/dangelic/conways-game-of-life/blob/main/gameplay.png)
 
 Life is a classic example of a cellular automaton and exhibits interesting emergent behaviors. 
 It fascinates me since I've first encountered the game, as it illustrates how simple rules can give rise to complex and emergent behaviors, mirroring the intricacies of natural systems
