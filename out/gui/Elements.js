@@ -8,11 +8,13 @@ class ElementsGUI {
         this.generationLoop = generationLoop;
         this.randomSpawnChance = 0.2; // Set the initial value for randomSpawnChance
         this.stateOn = false;
+        this.comparisonModeIsOn = false;
     }
     loadGUI() {
         this.createSpawnChanceSlider();
         this.createRandomSeedButton();
         this.createStartStopButton();
+        this.createToggleComparisonButton();
         this.createSpeedControl();
         this.createClearButton();
     }
@@ -23,6 +25,22 @@ class ElementsGUI {
         button.addEventListener('click', () => {
             this.world.initEmptyWorld();
             this.generationLoop.setGenerationCount(0);
+        });
+        document.body.appendChild(button);
+    }
+    createToggleComparisonButton() {
+        // Create a button to start/stop comparison mode
+        const button = document.createElement('button');
+        button.textContent = 'Comparison Mode';
+        button.addEventListener('click', () => {
+            if (this.comparisonModeIsOn) {
+                this.comparisonModeIsOn = false;
+                this.world.setComparisonToggle(false);
+            }
+            else {
+                this.comparisonModeIsOn = true;
+                this.world.setComparisonToggle(true);
+            }
         });
         document.body.appendChild(button);
     }

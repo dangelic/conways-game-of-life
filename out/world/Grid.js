@@ -20,7 +20,6 @@ class World {
         this.drawWorld();
         this.addClickListener();
         this.generationCount = 0;
-        this.hasComparisonToggled = false;
     }
     getCurrentGeneration() {
         return this.currentGeneration;
@@ -46,9 +45,6 @@ class World {
     setCurrentGenerationCount(generationCount) {
         this.generationCount = generationCount;
     }
-    setComparisonToggle(toggle) {
-        this.hasComparisonToggled = toggle;
-    }
     initEmptyWorld() {
         this.currentGeneration = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
         this.previousGeneration = this.currentGeneration;
@@ -72,6 +68,7 @@ class World {
             this.ctx.lineTo(this.canvas.width - this.margin, pixelY);
             this.ctx.stroke();
         }
+        this.drawGenerationComparison(); // Draw the comparison before the current generation
         // Draw the current generation
         for (let i = 0; i < this.numRows; i++) {
             for (let j = 0; j < this.numCols; j++) {
@@ -81,11 +78,9 @@ class World {
                 }
             }
         }
-        if (this.hasComparisonToggled)
-            this.drawGenerationComparison(); // Draw the comparison before the current generation
-        // Add a counter for generations
-        this.ctx.font = 'bold 50px Arial';
-        this.ctx.fillStyle = 'blue';
+        // Add the generationCount counter
+        this.ctx.font = '50px Arial';
+        this.ctx.fillStyle = 'red';
         this.ctx.fillText(`Generation: ${this.generationCount}`, 10, this.canvas.height - 20);
     }
     drawGenerationComparison() {
@@ -93,14 +88,12 @@ class World {
             for (let j = 0; j < this.numCols; j++) {
                 if (this.currentGeneration[i][j] && !this.previousGeneration[i][j]) {
                     // Cell is green if it is in the current generation but not in the previous generation
-                    console.log("reached green...");
                     this.ctx.fillStyle = 'green';
                     this.ctx.fillRect(j * this.cellSize + this.margin, i * this.cellSize + this.margin, this.cellSize, this.cellSize);
                 }
                 else if (!this.currentGeneration[i][j] && this.previousGeneration[i][j]) {
                     // Cell is red if it is in the previous generation but not in the current generation
-                    console.log("reached red...");
-                    this.ctx.fillStyle = 'red';
+                    this.ctx.fillStyle = 'green';
                     this.ctx.fillRect(j * this.cellSize + this.margin, i * this.cellSize + this.margin, this.cellSize, this.cellSize);
                 }
             }

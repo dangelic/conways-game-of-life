@@ -25,6 +25,10 @@ export class GenerationLoop {
     public setGenerationCount(generationCount: number): void {
         this.generationCount = generationCount;
     }
+    
+    public getDelay(): number {
+        return this.delay;
+    }
 
     public startGenerationLoop(): void {
         const loop = () => {
@@ -37,15 +41,13 @@ export class GenerationLoop {
         loop();
     }
 
-    public getDelay(): number {
-        return this.delay;
-    }
-
     private generateNextGeneration(): void {
-        let nextGeneration = Rules.determineNextGeneration(this.world.getCurrentGeneration())
-            this.world.setWorld(nextGeneration)
-            this.generationCount++;
-            this.world.setCurrentGenerationCount(this.generationCount)
-    }
+        let currentGeneration = this.world.getCurrentGeneration();
+        let nextGeneration = Rules.determineNextGeneration(currentGeneration)
 
+        this.world.setWorld(nextGeneration)
+        this.generationCount++;
+
+        this.world.setCurrentGenerationCount(this.generationCount)
+    }
 }

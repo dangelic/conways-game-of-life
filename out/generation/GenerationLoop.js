@@ -18,6 +18,9 @@ class GenerationLoop {
     setGenerationCount(generationCount) {
         this.generationCount = generationCount;
     }
+    getDelay() {
+        return this.delay;
+    }
     startGenerationLoop() {
         const loop = () => {
             if (this.stateOn) {
@@ -27,11 +30,9 @@ class GenerationLoop {
         };
         loop();
     }
-    getDelay() {
-        return this.delay;
-    }
     generateNextGeneration() {
-        let nextGeneration = Rules_1.Rules.determineNextGeneration(this.world.getCurrentGeneration());
+        let currentGeneration = this.world.getCurrentGeneration();
+        let nextGeneration = Rules_1.Rules.determineNextGeneration(currentGeneration);
         this.world.setWorld(nextGeneration);
         this.generationCount++;
         this.world.setCurrentGenerationCount(this.generationCount);
