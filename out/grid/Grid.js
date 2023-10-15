@@ -38,7 +38,7 @@ class Grid {
         this.generation = generation;
         this.drawGridForGeneration(); // Update the display after changing the generation
     }
-    setCurrentGeneration(generationCount) {
+    setCurrentGenerationCount(generationCount) {
         this.generationCount = generationCount;
     }
     initEmptyGrid() {

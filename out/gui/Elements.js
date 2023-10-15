@@ -5,6 +5,8 @@ const RandomSeed_1 = require("../seed/RandomSeed");
 class ElementsGUI {
     constructor(grid) {
         this.grid = grid;
+        // Set the initial value for randomSpawnChance
+        this.randomSpawnChance = 0.2;
     }
     createGUI() {
         this.createRandomSeedButton();

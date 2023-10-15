@@ -30,7 +30,7 @@ export class Grid {
         this.generationCount = 0;
     }
 
-    public getCurrentGeneration(): boolean[][] {
+    public getCurrentGeneration(): Generation {
         return this.generation;
     }
 
@@ -52,7 +52,7 @@ export class Grid {
         this.drawGridForGeneration(); // Update the display after changing the generation
     }
 
-    public setCurrentGeneration(generationCount: number): void {
+    public setCurrentGenerationCount(generationCount: number): void {
         this.generationCount = generationCount;
     }
 

@@ -1,20 +1,21 @@
-import { Grid } from '../grid/Grid'
+import { Grid } from '../grid/Grid';
 import { RandomSeed } from '../seed/RandomSeed';
 
 export class ElementsGUI {
-
-    private randomSpawnChance: number
-    private grid: Grid
+    private randomSpawnChance: number;
+    private grid: Grid;
 
     constructor(grid: Grid) {
         this.grid = grid;
+        // Set the initial value for randomSpawnChance
+        this.randomSpawnChance = 0.2;
     }
 
     public createGUI() {
         this.createRandomSeedButton();
         this.createSpawnChanceSlider();
     }
-    
+
     private createRandomSeedButton() {
         // Create a button to randomize Generation 0
         const button = document.createElement('button');
@@ -40,10 +41,3 @@ export class ElementsGUI {
         document.body.appendChild(slider);
     }
 }
-
-
-
-
-
-
-
