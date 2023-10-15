@@ -28,7 +28,7 @@ const path = __importStar(require("path"));
 let mainWindow;
 function createWindow() {
     mainWindow = new electron_1.BrowserWindow({
-        width: 1050,
+        width: 1150,
         height: 950,
         webPreferences: {
             nodeIntegration: true,

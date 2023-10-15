@@ -13,6 +13,18 @@ class ElementsGUI {
         this.createSpawnChanceSlider();
         this.createRandomSeedButton();
         this.createStartStopButton();
+        this.createSpeedControl();
+        this.createClearButton();
+    }
+    createClearButton() {
+        // Create a button to clear the world
+        const button = document.createElement('button');
+        button.textContent = 'Clear';
+        button.addEventListener('click', () => {
+            this.world.initEmptyWorld();
+            this.world.setCurrentGenerationCount(0);
+        });
+        document.body.appendChild(button);
     }
     createRandomSeedButton() {
         // Create a button to randomize Generation 0
@@ -53,6 +65,34 @@ class ElementsGUI {
             }
         });
         document.body.appendChild(button);
+    }
+    createSpeedControl() {
+        // Create a speed control with plus and minus buttons
+        const speedControl = document.createElement('div');
+        speedControl.classList.add('speed-control');
+        const plusButton = document.createElement('button');
+        plusButton.textContent = '+';
+        plusButton.addEventListener('click', () => {
+            // Reduce the delay to make the loop faster
+            const currentDelay = this.generationLoop.getDelay();
+            if (currentDelay > 50) { // Ensure it doesn't go too fast
+                const newDelay = currentDelay - 50;
+                this.generationLoop.setDelay(newDelay);
+            }
+        });
+        const minusButton = document.createElement('button');
+        minusButton.textContent = '-';
+        minusButton.addEventListener('click', () => {
+            // Accelerate the delay to make the loop slower
+            const currentDelay = this.generationLoop.getDelay();
+            if (currentDelay < 3000) { // Ensure it doesn't go too fast
+                const newDelay = currentDelay + 50;
+                this.generationLoop.setDelay(newDelay);
+            }
+        });
+        speedControl.appendChild(plusButton);
+        speedControl.appendChild(minusButton);
+        document.body.appendChild(speedControl);
     }
 }
 exports.ElementsGUI = ElementsGUI;

@@ -27,6 +27,9 @@ class GenerationLoop {
         };
         loop();
     }
+    getDelay() {
+        return this.delay;
+    }
     generateNextGeneration() {
         let nextGeneration = Rules_1.Rules.determineNextGeneration(this.world.getCurrentGeneration());
         this.world.setWorld(nextGeneration);

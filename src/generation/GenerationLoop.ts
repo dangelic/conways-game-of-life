@@ -37,6 +37,10 @@ export class GenerationLoop {
         loop();
     }
 
+    public getDelay(): number {
+        return this.delay;
+    }
+
     private generateNextGeneration(): void {
         let nextGeneration = Rules.determineNextGeneration(this.world.getCurrentGeneration())
             this.world.setWorld(nextGeneration)

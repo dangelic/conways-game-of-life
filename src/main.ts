@@ -5,7 +5,7 @@ let mainWindow: BrowserWindow | null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 1050,
+    width: 1150,
     height: 950,
     webPreferences: {
       nodeIntegration: true, // Allow Node.js integration in the renderer process

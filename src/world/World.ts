@@ -56,7 +56,7 @@ export class World {
         this.generationCount = generationCount;
     }
 
-    private initEmptyWorld() {
+    public initEmptyWorld() {
         this.generation = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
         this.generationCount = 0;
     }
