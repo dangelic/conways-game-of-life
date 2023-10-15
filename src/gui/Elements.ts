@@ -11,7 +11,7 @@ export class ElementsGUI {
         this.randomSpawnChance = 0.2;
     }
 
-    public createGUI() {
+    public loadGUI() {
         this.createRandomSeedButton();
         this.createSpawnChanceSlider();
     }
