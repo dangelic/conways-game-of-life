@@ -25,7 +25,7 @@ export class World {
         this.numRows = (this.canvas.height - 2 * this.margin) / this.cellSize;
         this.numCols = (this.canvas.width - 2 * this.margin) / this.cellSize;
         this.initEmptyWorld();
-        this.drawWorldForGeneration();
+        this.drawWorld();
         this.addClickListener();
         this.generationCount = 0;
     }
@@ -49,7 +49,7 @@ export class World {
     // Setter to update the state of the world
     public setWorld(generation: Generation): void {
         this.generation = generation;
-        this.drawWorldForGeneration(); // Update the display after changing the generation
+        this.drawWorld(); // Update the display after changing the generation
     }
 
     public setCurrentGenerationCount(generationCount: number): void {
@@ -59,10 +59,10 @@ export class World {
     public initEmptyWorld() {
         this.generation = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
         this.generationCount = 0;
-        this.drawWorldForGeneration(); // Update the display after changing the generation
+        this.drawWorld(); // Update the display after changing the generation
     }
 
-    private drawWorldForGeneration() {
+    private drawWorld() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.strokeStyle = 'black';
 
@@ -110,7 +110,7 @@ export class World {
             const cellX = Math.floor((x - this.margin) / this.cellSize);
             const cellY = Math.floor((y - this.margin) / this.cellSize);
             this.generation[cellY][cellX] = !this.generation[cellY][cellX]; // Toggle the cell state
-            this.drawWorldForGeneration();
+            this.drawWorld();
         });
     }
 }
