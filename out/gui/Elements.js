@@ -50,6 +50,7 @@ class ElementsGUI {
         button.textContent = 'Randomize Gen 0';
         button.addEventListener('click', () => {
             const randomSeed = new RandomSeed_1.RandomSeed(this.randomSpawnChance);
+            this.world.setCurrentGenerationCount(0);
             randomSeed.seedGenerationZero(this.world);
         });
         document.body.appendChild(button);
@@ -58,7 +59,7 @@ class ElementsGUI {
         const slider = document.createElement('input');
         slider.type = 'range';
         slider.min = '0.05';
-        slider.max = '0.5';
+        slider.max = '1';
         slider.step = '0.01';
         slider.value = this.randomSpawnChance.toString();
         // Update randomSpawnChance when the slider value changes
@@ -103,7 +104,7 @@ class ElementsGUI {
         minusButton.addEventListener('click', () => {
             // Accelerate the delay to make the loop slower
             const currentDelay = this.generationLoop.getDelay();
-            if (currentDelay < 3000) { // Ensure it doesn't go too fast
+            if (currentDelay < 15000) {
                 const newDelay = currentDelay + 50;
                 this.generationLoop.setDelay(newDelay);
             }

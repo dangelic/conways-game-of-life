@@ -46,8 +46,5 @@ export class GenerationLoop {
         let nextGeneration = Rules.determineNextGeneration(currentGeneration)
 
         this.world.setWorld(nextGeneration)
-        this.generationCount++;
-
-        this.world.setCurrentGenerationCount(this.generationCount)
     }
 }

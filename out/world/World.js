@@ -19,7 +19,7 @@ class World {
         this.initEmptyWorld();
         this.drawWorld();
         this.addClickListener();
-        this.generationCount = 0;
+        this.currentGenerationCount = 0;
         this.hasComparisonToggled = false;
     }
     getCurrentGeneration() {
@@ -29,7 +29,7 @@ class World {
         return this.previousGeneration;
     }
     getCurrentGenerationCount() {
-        return this.generationCount;
+        return this.currentGenerationCount;
     }
     getNumRows() {
         return this.numRows;
@@ -41,10 +41,11 @@ class World {
     setWorld(currentGeneration) {
         this.previousGeneration = this.currentGeneration; // Save the last generation for comparison
         this.currentGeneration = currentGeneration;
+        this.currentGenerationCount++;
         this.drawWorld(); // Update the display after changing the currentGeneration
     }
-    setCurrentGenerationCount(generationCount) {
-        this.generationCount = generationCount;
+    setCurrentGenerationCount(currentGenerationCount) {
+        this.currentGenerationCount = currentGenerationCount;
     }
     setComparisonToggle(toggle) {
         this.hasComparisonToggled = toggle;
@@ -52,7 +53,7 @@ class World {
     initEmptyWorld() {
         this.currentGeneration = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
         this.previousGeneration = this.currentGeneration;
-        this.generationCount = 0;
+        this.currentGenerationCount = 0;
         this.drawWorld(); // Update the display after changing the currentGeneration
     }
     drawWorld() {
@@ -85,22 +86,20 @@ class World {
             this.drawGenerationComparison(); // Draw the comparison before the current generation
         // Add a counter for generations
         this.ctx.font = 'bold 50px Arial';
-        this.ctx.fillStyle = 'blue';
-        this.ctx.fillText(`Generation: ${this.generationCount}`, 10, this.canvas.height - 20);
+        this.ctx.fillStyle = 'red';
+        this.ctx.fillText(`Generation: ${this.currentGenerationCount}`, 10, this.canvas.height - 20);
     }
     drawGenerationComparison() {
         for (let i = 0; i < this.numRows; i++) {
             for (let j = 0; j < this.numCols; j++) {
                 if (this.currentGeneration[i][j] && !this.previousGeneration[i][j]) {
                     // Cell is green if it is in the current generation but not in the previous generation
-                    console.log("reached green...");
-                    this.ctx.fillStyle = 'green';
+                    this.ctx.fillStyle = 'blue';
                     this.ctx.fillRect(j * this.cellSize + this.margin, i * this.cellSize + this.margin, this.cellSize, this.cellSize);
                 }
                 else if (!this.currentGeneration[i][j] && this.previousGeneration[i][j]) {
                     // Cell is red if it is in the previous generation but not in the current generation
-                    console.log("reached red...");
-                    this.ctx.fillStyle = 'red';
+                    this.ctx.fillStyle = 'orange';
                     this.ctx.fillRect(j * this.cellSize + this.margin, i * this.cellSize + this.margin, this.cellSize, this.cellSize);
                 }
             }
