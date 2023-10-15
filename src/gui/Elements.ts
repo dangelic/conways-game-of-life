@@ -1,19 +1,24 @@
-import { Grid } from '../grid/Grid';
+import { World } from '../world/World';
 import { RandomSeed } from '../seed/RandomSeed';
+import { GenerationLoop } from '../generation/GenerationLoop';
 
 export class ElementsGUI {
     private randomSpawnChance: number;
-    private grid: Grid;
+    private world: World;
+    private generationLoop: GenerationLoop;
+    private stateOn: boolean;
 
-    constructor(grid: Grid) {
-        this.grid = grid;
-        // Set the initial value for randomSpawnChance
-        this.randomSpawnChance = 0.2;
+    constructor(world: World, generationLoop: GenerationLoop) {
+        this.world = world;
+        this.generationLoop = generationLoop;
+        this.randomSpawnChance = 0.2; // Set the initial value for randomSpawnChance
+        this.stateOn = false;
     }
 
     public loadGUI() {
-        this.createRandomSeedButton();
         this.createSpawnChanceSlider();
+        this.createRandomSeedButton();
+        this.createStartStopButton()
     }
 
     private createRandomSeedButton() {
@@ -22,7 +27,7 @@ export class ElementsGUI {
         button.textContent = 'Randomize Gen 0';
         button.addEventListener('click', () => {
             const randomSeed = new RandomSeed(this.randomSpawnChance);
-            randomSeed.seedGenerationZero(this.grid);
+            randomSeed.seedGenerationZero(this.world);
         });
         document.body.appendChild(button);
     }
@@ -40,4 +45,22 @@ export class ElementsGUI {
         });
         document.body.appendChild(slider);
     }
+
+    private createStartStopButton() {
+        // Create a button to start/stop the generation loop
+        const button = document.createElement('button');
+        button.textContent = 'Start/Stop';
+        button.addEventListener('click', () => {
+            if (this.stateOn) {
+                this.stateOn = false; // Stop the loop
+                this.generationLoop.setState(false);
+            } else {
+                this.stateOn = true; // Start the loop
+                this.generationLoop.setState(true);
+                this.generationLoop.startGenerationLoop(); // Start the loop
+            }
+        });
+        document.body.appendChild(button);
+    }
+    
 }

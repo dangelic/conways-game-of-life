@@ -1,5 +1,5 @@
 import { Generation } from '../types/Generation'
-import { Grid } from "../grid/Grid";
+import { World } from "../world/World";
 
 
 export class RandomSeed {
@@ -7,8 +7,8 @@ export class RandomSeed {
     constructor(randomSpawnChance: number) {
       this.randomSpawnChance = randomSpawnChance;
     }
-    public seedGenerationZero(grid: Grid): void {
-        const generationZero: Generation = grid.getCurrentGeneration();
+    public seedGenerationZero(world: World): void {
+        const generationZero: Generation = world.getCurrentGeneration();
 
         for (let i = 0; i < generationZero.length; i++) {
             for (let j = 0; j < generationZero[0].length; j++) {
@@ -20,7 +20,7 @@ export class RandomSeed {
               else generationZero[i][j] = false;
             }
        }
-       grid.setGrid(generationZero);
+       world.setWorld(generationZero);
     }
 }
 

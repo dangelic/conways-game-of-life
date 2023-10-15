@@ -1,16 +1,16 @@
-import { Grid } from "../grid/Grid";
+import { World } from "../world/World";
 import { Rules } from "./Rules";
 
 export class GenerationLoop {
-    private grid: Grid
+    private world: World
     private stateOn: boolean;
     private delay: number; // ms
     private generationCount: number;
 
-    constructor(grid: Grid) {
-        this.grid = grid;
+    constructor(world: World) {
+        this.world = world;
         this.stateOn = true;
-        this.delay = 1000;
+        this.delay = 200;
         this.generationCount = 0;
     }
 
@@ -38,10 +38,10 @@ export class GenerationLoop {
     }
 
     private generateNextGeneration(): void {
-        let nextGeneration = Rules.determineNextGeneration(this.grid.getCurrentGeneration())
-            this.grid.setGrid(nextGeneration)
+        let nextGeneration = Rules.determineNextGeneration(this.world.getCurrentGeneration())
+            this.world.setWorld(nextGeneration)
             this.generationCount++;
-            this.grid.setCurrentGenerationCount(this.generationCount)
+            this.world.setCurrentGenerationCount(this.generationCount)
     }
 
 }

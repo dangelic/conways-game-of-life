@@ -5,8 +5,8 @@ class RandomSeed {
     constructor(randomSpawnChance) {
         this.randomSpawnChance = randomSpawnChance;
     }
-    seedGenerationZero(grid) {
-        const generationZero = grid.getCurrentGeneration();
+    seedGenerationZero(world) {
+        const generationZero = world.getCurrentGeneration();
         for (let i = 0; i < generationZero.length; i++) {
             for (let j = 0; j < generationZero[0].length; j++) {
                 // Generate a random number between 0 and 1
@@ -18,7 +18,7 @@ class RandomSeed {
                     generationZero[i][j] = false;
             }
         }
-        grid.setGrid(generationZero);
+        world.setWorld(generationZero);
     }
 }
 exports.RandomSeed = RandomSeed;

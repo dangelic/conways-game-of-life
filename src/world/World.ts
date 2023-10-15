@@ -1,6 +1,6 @@
 import { Generation } from "../types/Generation";
 
-export class Grid {
+export class World {
     private canvas: HTMLCanvasElement;
     private ctx: CanvasRenderingContext2D;
     private generation: boolean[][];
@@ -13,19 +13,19 @@ export class Grid {
     constructor() {
         this.margin = 10;
         this.canvas = document.createElement('canvas');
-        this.canvas.width = 800 + 2 * this.margin;
-        this.canvas.height = 600 + 2 * this.margin;
+        this.canvas.width = 1000 + 2 * this.margin;
+        this.canvas.height = 800 + 2 * this.margin;
         this.canvas.style.position = 'absolute';
         this.canvas.style.left = '50%';
         this.canvas.style.top = '50%';
         this.canvas.style.transform = 'translate(-50%, -50%)';
         document.body.appendChild(this.canvas);
         this.ctx = this.canvas.getContext('2d');
-        this.cellSize = 20;
+        this.cellSize = 10;
         this.numRows = (this.canvas.height - 2 * this.margin) / this.cellSize;
         this.numCols = (this.canvas.width - 2 * this.margin) / this.cellSize;
-        this.initEmptyGrid();
-        this.drawGridForGeneration();
+        this.initEmptyWorld();
+        this.drawWorldForGeneration();
         this.addClickListener();
         this.generationCount = 0;
     }
@@ -46,22 +46,22 @@ export class Grid {
         return this.numCols;
     }
 
-    // Setter to update the state of the grid
-    public setGrid(generation: Generation): void {
+    // Setter to update the state of the world
+    public setWorld(generation: Generation): void {
         this.generation = generation;
-        this.drawGridForGeneration(); // Update the display after changing the generation
+        this.drawWorldForGeneration(); // Update the display after changing the generation
     }
 
     public setCurrentGenerationCount(generationCount: number): void {
         this.generationCount = generationCount;
     }
 
-    private initEmptyGrid() {
+    private initEmptyWorld() {
         this.generation = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
         this.generationCount = 0;
     }
 
-    private drawGridForGeneration() {
+    private drawWorldForGeneration() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.strokeStyle = 'black';
 
@@ -109,7 +109,7 @@ export class Grid {
             const cellX = Math.floor((x - this.margin) / this.cellSize);
             const cellY = Math.floor((y - this.margin) / this.cellSize);
             this.generation[cellY][cellX] = !this.generation[cellY][cellX]; // Toggle the cell state
-            this.drawGridForGeneration();
+            this.drawWorldForGeneration();
         });
     }
 }

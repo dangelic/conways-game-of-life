@@ -1,12 +1,11 @@
-import { Grid } from './grid/Grid';
+import { World } from './world/World';
 import { ElementsGUI } from './gui/Elements'
 import { GenerationLoop } from './generation/GenerationLoop'
 
 window.onload = () => {
-    // Create a new Grid instance
-    const grid = new Grid();
-    const elementsGUI = new ElementsGUI(grid)
+    // Create a new World instance
+    const world = new World();
+    const generationLoop = new GenerationLoop(world)
+    const elementsGUI = new ElementsGUI(world, generationLoop)
     elementsGUI.loadGUI();
-    const generationLoop = new GenerationLoop(grid)
-    generationLoop.startGenerationLoop();
 };

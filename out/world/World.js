@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Grid = void 0;
-class Grid {
+exports.World = void 0;
+class World {
     constructor() {
         this.margin = 10;
         this.canvas = document.createElement('canvas');
@@ -16,8 +16,8 @@ class Grid {
         this.cellSize = 10;
         this.numRows = (this.canvas.height - 2 * this.margin) / this.cellSize;
         this.numCols = (this.canvas.width - 2 * this.margin) / this.cellSize;
-        this.initEmptyGrid();
-        this.drawGridForGeneration();
+        this.initEmptyWorld();
+        this.drawWorldForGeneration();
         this.addClickListener();
         this.generationCount = 0;
     }
@@ -33,19 +33,19 @@ class Grid {
     getNumCols() {
         return this.numCols;
     }
-    // Setter to update the state of the grid
-    setGrid(generation) {
+    // Setter to update the state of the world
+    setWorld(generation) {
         this.generation = generation;
-        this.drawGridForGeneration(); // Update the display after changing the generation
+        this.drawWorldForGeneration(); // Update the display after changing the generation
     }
     setCurrentGenerationCount(generationCount) {
         this.generationCount = generationCount;
     }
-    initEmptyGrid() {
+    initEmptyWorld() {
         this.generation = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
         this.generationCount = 0;
     }
-    drawGridForGeneration() {
+    drawWorldForGeneration() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.strokeStyle = 'black';
         for (let x = this.margin; x <= this.canvas.width - this.margin; x += this.cellSize) {
@@ -83,8 +83,8 @@ class Grid {
             const cellX = Math.floor((x - this.margin) / this.cellSize);
             const cellY = Math.floor((y - this.margin) / this.cellSize);
             this.generation[cellY][cellX] = !this.generation[cellY][cellX]; // Toggle the cell state
-            this.drawGridForGeneration();
+            this.drawWorldForGeneration();
         });
     }
 }
-exports.Grid = Grid;
+exports.World = World;
