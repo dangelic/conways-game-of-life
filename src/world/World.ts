@@ -125,7 +125,7 @@ export class World {
             for (let j = 0; j < this.numCols; j++) {
                 if (this.currentGeneration[i][j] && !this.previousGeneration[i][j]) {
                     // Cell is green if it is in the current generation but not in the previous generation
-                    this.ctx.fillStyle = 'blue';
+                    this.ctx.fillStyle = 'green';
                     this.ctx.fillRect(
                         j * this.cellSize + this.margin,
                         i * this.cellSize + this.margin,
@@ -134,7 +134,7 @@ export class World {
                     );
                 } else if (!this.currentGeneration[i][j] && this.previousGeneration[i][j]) {
                     // Cell is red if it is in the previous generation but not in the current generation
-                    this.ctx.fillStyle = 'orange';
+                    this.ctx.fillStyle = 'blue';
                     this.ctx.fillRect(
                         j * this.cellSize + this.margin,
                         i * this.cellSize + this.margin,
