@@ -1,3 +1,5 @@
+import { Generation } from "../types/Generation";
+
 export class Grid {
     private canvas: HTMLCanvasElement;
     private ctx: CanvasRenderingContext2D;
@@ -45,8 +47,8 @@ export class Grid {
     }
 
     // Setter to update the state of the grid
-    public setGridForGeneration(newGrid: boolean[][]): void {
-        this.generation = newGrid;
+    public setGrid(generation: Generation): void {
+        this.generation = generation;
         this.drawGridForGeneration(); // Update the display after changing the generation
     }
 

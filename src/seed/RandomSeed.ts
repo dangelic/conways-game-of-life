@@ -20,7 +20,7 @@ export class RandomSeed {
               else generationZero[i][j] = false;
             }
        }
-       grid.setGridForGeneration(generationZero);
+       grid.setGrid(generationZero);
     }
 }
 
