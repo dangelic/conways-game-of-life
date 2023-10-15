@@ -13,7 +13,7 @@ class World {
         this.canvas.style.transform = 'translate(-50%, -50%)';
         document.body.appendChild(this.canvas);
         this.ctx = this.canvas.getContext('2d');
-        this.cellSize = 10;
+        this.cellSize = 20;
         this.numRows = (this.canvas.height - 2 * this.margin) / this.cellSize;
         this.numCols = (this.canvas.width - 2 * this.margin) / this.cellSize;
         this.initEmptyWorld();
@@ -44,6 +44,7 @@ class World {
     initEmptyWorld() {
         this.generation = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
         this.generationCount = 0;
+        this.drawWorldForGeneration(); // Update the display after changing the generation
     }
     drawWorldForGeneration() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);

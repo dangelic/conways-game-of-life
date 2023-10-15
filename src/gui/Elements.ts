@@ -29,7 +29,7 @@ export class ElementsGUI {
         button.textContent = 'Clear';
         button.addEventListener('click', () => {
             this.world.initEmptyWorld();
-            this.world.setCurrentGenerationCount(0);
+            this.generationLoop.setGenerationCount(0);
         });
         document.body.appendChild(button);
     }
