@@ -17,8 +17,12 @@ class Grid {
         this.numRows = (this.canvas.height - 2 * this.margin) / this.cellSize;
         this.numCols = (this.canvas.width - 2 * this.margin) / this.cellSize;
         this.initEmptyGrid();
-        this.drawGridForGeneration();
+        this.drawGridForPopulation();
         this.addClickListener();
+        this.generation = 0;
+    }
+    getCurrentPopulation() {
+        return this.population;
     }
     getCurrentGeneration() {
         return this.generation;
@@ -30,14 +34,18 @@ class Grid {
         return this.numCols;
     }
     // Setter to update the state of the grid
-    setGridForGeneration(newGrid) {
-        this.generation = newGrid;
-        this.drawGridForGeneration(); // Update the display after changing the generation
+    setGridForPopulation(newGrid) {
+        this.population = newGrid;
+        this.drawGridForPopulation(); // Update the display after changing the population
+    }
+    setCurrentGeneration(generation) {
+        this.generation = generation;
     }
     initEmptyGrid() {
-        this.generation = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
+        this.population = new Array(this.numRows).fill(null).map(() => new Array(this.numCols).fill(false));
+        this.generation = 0;
     }
-    drawGridForGeneration() {
+    drawGridForPopulation() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.strokeStyle = 'black';
         for (let x = this.margin; x <= this.canvas.width - this.margin; x += this.cellSize) {
@@ -56,12 +64,16 @@ class Grid {
         }
         for (let i = 0; i < this.numRows; i++) {
             for (let j = 0; j < this.numCols; j++) {
-                if (this.generation[i][j]) {
+                if (this.population[i][j]) {
                     this.ctx.fillStyle = 'black';
                     this.ctx.fillRect(j * this.cellSize + this.margin, i * this.cellSize + this.margin, this.cellSize, this.cellSize);
                 }
             }
         }
+        // Add the generation counter
+        this.ctx.font = '50px Arial';
+        this.ctx.fillStyle = 'red';
+        this.ctx.fillText(`Generation: ${this.generation}`, 10, this.canvas.height - 20);
     }
     addClickListener() {
         this.canvas.addEventListener('click', (e) => {
@@ -70,8 +82,8 @@ class Grid {
             const y = e.clientY - rect.top;
             const cellX = Math.floor((x - this.margin) / this.cellSize);
             const cellY = Math.floor((y - this.margin) / this.cellSize);
-            this.generation[cellY][cellX] = !this.generation[cellY][cellX]; // Toggle the cell state
-            this.drawGridForGeneration();
+            this.population[cellY][cellX] = !this.population[cellY][cellX]; // Toggle the cell state
+            this.drawGridForPopulation();
         });
     }
 }
