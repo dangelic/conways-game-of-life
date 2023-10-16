@@ -8,8 +8,14 @@ const CellCountsStatistics_1 = require("./statistics/CellCountsStatistics");
 window.onload = () => {
     // Create a new World instance
     const world = new World_1.World();
+    // Create a StatisticsGUI instance
     const statisticsGUI = new StatisticsGUI_1.StatisticsGUI();
-    const cellCountsStatistics = new CellCountsStatistics_1.CellCountsStatistics(statisticsGUI);
+    // Create a CellCountsStatistics instance
+    const cellCountsStatistics = new CellCountsStatistics_1.CellCountsStatistics();
+    // Add StatisticsGUI as an observer to CellCountsStatistics
+    cellCountsStatistics.addObserver(statisticsGUI);
+    // Create a GenerationLoop instance
     const generationLoop = new GenerationLoop_1.GenerationLoop(world, cellCountsStatistics);
+    // Create an InteractiveElementsGUI instance
     const interactiveElementsGUI = new InteractiveElementsGUI_1.InteractiveElementsGUI(world, generationLoop, cellCountsStatistics);
 };

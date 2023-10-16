@@ -7,8 +7,19 @@ import { CellCountsStatistics } from './statistics/CellCountsStatistics';
 window.onload = () => {
     // Create a new World instance
     const world = new World();
+    
+    // Create a StatisticsGUI instance
     const statisticsGUI = new StatisticsGUI();
-    const cellCountsStatistics = new CellCountsStatistics(statisticsGUI);
-    const generationLoop = new GenerationLoop(world, cellCountsStatistics)
-    const interactiveElementsGUI = new InteractiveElementsGUI(world, generationLoop, cellCountsStatistics)
+    
+    // Create a CellCountsStatistics instance
+    const cellCountsStatistics = new CellCountsStatistics();
+
+    // Add StatisticsGUI as an observer to CellCountsStatistics
+    cellCountsStatistics.addObserver(statisticsGUI);
+
+    // Create a GenerationLoop instance
+    const generationLoop = new GenerationLoop(world, cellCountsStatistics);
+
+    // Create an InteractiveElementsGUI instance
+    const interactiveElementsGUI = new InteractiveElementsGUI(world, generationLoop, cellCountsStatistics);
 };

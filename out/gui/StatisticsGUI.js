@@ -45,17 +45,17 @@ class StatisticsGUI {
         this.spawnedCellCount = 0;
         this.updateDeadCellCount(this.deadCellCount);
         this.updateSpawnedCellCount(this.spawnedCellCount);
-        this.deadSpawnRatio.textContent = "Ratio: / ";
+        this.updateDeadSpawnRatio();
     }
     // Update the counter for spawned cells
     updateSpawnedCellCount(count) {
         this.spawnedCellCounter.textContent = `Spawned Cells: ${count} `;
         this.spawnedCellCount = count;
         if (this.spawnedCellCount !== 0) {
-            this.deadSpawnRatio.textContent = `Ratio: ${(100 * this.deadCellCount / this.spawnedCellCount).toFixed(2)}%`;
+            this.updateDeadSpawnRatio();
         }
         else {
-            this.deadSpawnRatio.textContent = "Ratio: /";
+            this.deadSpawnRatio.textContent = 'Ratio: /';
         }
     }
     // Update the counter for dead cells
@@ -63,11 +63,15 @@ class StatisticsGUI {
         this.deadCellCounter.textContent = `Dead Cells: ${count} `;
         this.deadCellCount = count;
         if (this.deadCellCount !== 0) {
-            this.deadSpawnRatio.textContent = `Ratio: ${(100 * this.deadCellCount / this.spawnedCellCount).toFixed(2)}%)`;
+            this.updateDeadSpawnRatio();
         }
         else {
-            this.deadSpawnRatio.textContent = "Ratio: / ";
+            this.deadSpawnRatio.textContent = 'Ratio: /';
         }
+    }
+    updateDeadSpawnRatio() {
+        const ratio = (this.deadCellCount / this.spawnedCellCount) * 100;
+        this.deadSpawnRatio.textContent = `Ratio: ${ratio.toFixed(2)}%`;
     }
 }
 exports.StatisticsGUI = StatisticsGUI;
