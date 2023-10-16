@@ -62,7 +62,7 @@ private createCounters() {
     // Update the counter for spawned cells
     public updateSpawnedCellCount(count: number) {
         this.spawnedCellCounter.textContent = `Spawned Cells: ${count} `;
-        this.spawnedCellCount = this.spawnedCellCount + count;
+        this.spawnedCellCount = count;
         if (this.spawnedCellCount !== 0) {
             this.deadSpawnRatio.textContent = `Ratio: ${(100 * this.deadCellCount / this.spawnedCellCount).toFixed(2)}%`;
         } else {
@@ -73,7 +73,7 @@ private createCounters() {
     // Update the counter for dead cells
     public updateDeadCellCount(count: number) {
       this.deadCellCounter.textContent = `Dead Cells: ${count} `;
-      this.deadCellCount = this.deadCellCount + count;
+      this.deadCellCount = count;
       if (this.deadCellCount !== 0) {
         this.deadSpawnRatio.textContent = `Ratio: ${(100 * this.deadCellCount / this.spawnedCellCount).toFixed(2)}%)`;
     } else {
