@@ -1,14 +1,23 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenerationLoop = void 0;
+const CellCountsStatistics_1 = require("../statistics/CellCountsStatistics");
+const World_1 = require("../world/World");
 const Rules_1 = require("./Rules");
 class GenerationLoop {
-    constructor(world, cellCountsStatistics) {
-        this.world = world;
+    constructor() {
+        this.world = World_1.World.getInstance();
         this.stateOn = true;
         this.delay = 200;
         this.generationCount = 0;
-        this.cellCountsStatistics = cellCountsStatistics;
+        this.cellCountsStatistics = CellCountsStatistics_1.CellCountsStatistics.getInstance();
+    }
+    // Get the singleton instance
+    static getInstance() {
+        if (!GenerationLoop.instance) {
+            GenerationLoop.instance = new GenerationLoop();
+        }
+        return GenerationLoop.instance;
     }
     setState(isOn) {
         this.stateOn = isOn;
@@ -39,3 +48,4 @@ class GenerationLoop {
     }
 }
 exports.GenerationLoop = GenerationLoop;
+GenerationLoop.instance = null;

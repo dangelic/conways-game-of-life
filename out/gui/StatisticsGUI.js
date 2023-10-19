@@ -7,17 +7,23 @@ class StatisticsGUI {
         this.deadCellCount = 0;
         this.spawnedCellCount = 0;
     }
+    // Get the singleton instance
+    static getInstance() {
+        if (!StatisticsGUI.instance) {
+            StatisticsGUI.instance = new StatisticsGUI();
+        }
+        return StatisticsGUI.instance;
+    }
     // Create and initialize the counters with CSS positioning and styling
     createCounters() {
         // Create a container div for the counters
         const countersContainer = document.createElement('div');
         countersContainer.textContent = 'Population ∑ : ';
-        // countersContainer.style.fontWeight = 'bold';
         countersContainer.style.fontSize = '18px';
         countersContainer.style.position = 'fixed';
         countersContainer.style.bottom = '10px';
-        countersContainer.style.left = '50%'; // Set the left position to 50% to center horizontally
-        countersContainer.style.transform = 'translateX(-50%)'; // Center horizontally
+        countersContainer.style.left = '50%';
+        countersContainer.style.transform = 'translateX(-50%)';
         // dead cells
         this.deadCellCounter = document.createElement('span');
         this.deadCellCounter.textContent = 'Dead Cells: 0 ';
@@ -27,7 +33,6 @@ class StatisticsGUI {
         // spawned cells
         this.spawnedCellCounter = document.createElement('span');
         this.spawnedCellCounter.textContent = 'Spawned Cells: 0 ';
-        //this.spawnedCellCounter.style.fontWeight = 'bold';
         this.spawnedCellCounter.style.fontSize = '18px';
         this.spawnedCellCounter.style.color = 'green';
         countersContainer.appendChild(this.spawnedCellCounter);
@@ -75,3 +80,4 @@ class StatisticsGUI {
     }
 }
 exports.StatisticsGUI = StatisticsGUI;
+StatisticsGUI.instance = null;

@@ -1,10 +1,10 @@
 import { World } from '../world/World';
 import { RandomSeed } from '../seed/RandomSeed';
 import { GenerationLoop } from '../generation/GenerationLoop';
-import { StatisticsGUI } from './StatisticsGUI';
 import { CellCountsStatistics } from '../statistics/CellCountsStatistics';
 
 export class InteractiveElementsGUI {
+    private static instance: InteractiveElementsGUI | null = null;
     private randomSpawnChance: number;
     private world: World;
     private generationLoop: GenerationLoop;
@@ -12,13 +12,13 @@ export class InteractiveElementsGUI {
     private comparisonModeIsOn: boolean;
     private cellCountsStatistics: CellCountsStatistics;
 
-    constructor(world: World, generationLoop: GenerationLoop, cellCountsStatistics: CellCountsStatistics) {
-        this.world = world;
-        this.generationLoop = generationLoop;
+    private constructor() {
+        this.world = World.getInstance()
+        this.generationLoop = GenerationLoop.getInstance();
         this.randomSpawnChance = 0.2; // Set the initial value for randomSpawnChance
         this.stateOn = false;
         this.comparisonModeIsOn = false;
-        this.cellCountsStatistics = cellCountsStatistics;
+        this.cellCountsStatistics = CellCountsStatistics.getInstance();
 
         this.createSpawnChanceSlider();
         this.createRandomSeedButton();
@@ -26,6 +26,14 @@ export class InteractiveElementsGUI {
         this.createToggleComparisonButton();
         this.createSpeedControl();
         this.createClearButton();
+    }
+
+    // Get the singleton instance
+    public static getInstance(): InteractiveElementsGUI {
+        if (!InteractiveElementsGUI.instance) {
+            InteractiveElementsGUI.instance = new InteractiveElementsGUI();
+        }
+        return InteractiveElementsGUI.instance;
     }
 
     private createClearButton() {

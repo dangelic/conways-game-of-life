@@ -3,18 +3,27 @@ import { World } from "../world/World";
 import { Rules } from "./Rules";
 
 export class GenerationLoop {
-    private world: World
+    private world: World;
     private stateOn: boolean;
     private delay: number; // ms
     private generationCount: number;
     private cellCountsStatistics: CellCountsStatistics;
+    private static instance: GenerationLoop | null = null;
 
-    constructor(world: World, cellCountsStatistics: CellCountsStatistics) {
-        this.world = world;
+    private constructor() {
+        this.world = World.getInstance();
         this.stateOn = true;
         this.delay = 200;
         this.generationCount = 0;
-        this.cellCountsStatistics = cellCountsStatistics;
+        this.cellCountsStatistics = CellCountsStatistics.getInstance();
+    }
+
+    // Get the singleton instance
+    public static getInstance(): GenerationLoop {
+        if (!GenerationLoop.instance) {
+            GenerationLoop.instance = new GenerationLoop();
+        }
+        return GenerationLoop.instance;
     }
 
     public setState(isOn: boolean): void {

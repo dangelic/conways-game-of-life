@@ -5,21 +5,12 @@ import { StatisticsGUI } from './gui/StatisticsGUI';
 import { CellCountsStatistics } from './statistics/CellCountsStatistics';
 
 window.onload = () => {
-    // Create a new World instance
-    const world = new World();
-    
-    // Create a StatisticsGUI instance
-    const statisticsGUI = new StatisticsGUI();
-    
-    // Create a CellCountsStatistics instance
-    const cellCountsStatistics = new CellCountsStatistics();
+    World.getInstance(); // Load the grid
+    GenerationLoop.getInstance(); // Start the loop for creating generations
+    InteractiveElementsGUI.getInstance(); // Enable basic GUI
 
-    // Add StatisticsGUI as an observer to CellCountsStatistics
-    cellCountsStatistics.addObserver(statisticsGUI);
-
-    // Create a GenerationLoop instance
-    const generationLoop = new GenerationLoop(world, cellCountsStatistics);
-
-    // Create an InteractiveElementsGUI instance
-    const interactiveElementsGUI = new InteractiveElementsGUI(world, generationLoop, cellCountsStatistics);
+    // Enable statistics and comparison
+    const cellCountsStatistics = CellCountsStatistics.getInstance();
+    const statisticsGUI = StatisticsGUI.getInstance()
+    cellCountsStatistics.addObserver(statisticsGUI); // Add observer so that statisticsGUI notices changes in stats
 };

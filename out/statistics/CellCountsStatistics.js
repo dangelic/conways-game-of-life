@@ -7,6 +7,13 @@ class CellCountsStatistics {
         this.diedCount = 0;
         this.spawnedCount = 0;
     }
+    // Get the singleton instance
+    static getInstance() {
+        if (!CellCountsStatistics.instance) {
+            CellCountsStatistics.instance = new CellCountsStatistics();
+        }
+        return CellCountsStatistics.instance;
+    }
     // Add an observer to the list
     addObserver(observer) {
         this.observers.push(observer);
@@ -61,3 +68,4 @@ class CellCountsStatistics {
     }
 }
 exports.CellCountsStatistics = CellCountsStatistics;
+CellCountsStatistics.instance = null;

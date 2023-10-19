@@ -7,10 +7,19 @@ export class CellCountsStatistics {
     private diedCount: number;
     private spawnedCount: number;
     private observers: StatisticsObserver[] = [];
+    private static instance: CellCountsStatistics | null = null;
 
-    constructor() {
+    private constructor() {
         this.diedCount = 0;
         this.spawnedCount = 0;
+    }
+
+    // Get the singleton instance
+    public static getInstance(): CellCountsStatistics {
+        if (!CellCountsStatistics.instance) {
+            CellCountsStatistics.instance = new CellCountsStatistics();
+        }
+        return CellCountsStatistics.instance;
     }
 
     // Add an observer to the list

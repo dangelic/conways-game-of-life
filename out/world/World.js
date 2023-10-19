@@ -22,6 +22,12 @@ class World {
         this.currentGenerationCount = 0;
         this.hasComparisonToggled = false;
     }
+    static getInstance() {
+        if (!World.instance) {
+            World.instance = new World();
+        }
+        return World.instance;
+    }
     getCurrentGeneration() {
         return this.currentGeneration;
     }
@@ -118,3 +124,4 @@ class World {
     }
 }
 exports.World = World;
+World.instance = null;

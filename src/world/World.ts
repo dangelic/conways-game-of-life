@@ -1,6 +1,7 @@
 import { Generation } from "../types/Generation";
 
 export class World {
+    private static instance: World | null = null;
     private canvas: HTMLCanvasElement;
     private ctx: CanvasRenderingContext2D;
     private currentGeneration: Generation;
@@ -12,7 +13,7 @@ export class World {
     private currentGenerationCount: number;
     private hasComparisonToggled: boolean;
 
-    constructor() {
+    private constructor() {
         this.margin = 10;
         this.canvas = document.createElement('canvas');
         this.canvas.width = 1000 + 2 * this.margin;
@@ -31,6 +32,13 @@ export class World {
         this.addClickListener();
         this.currentGenerationCount = 0;
         this.hasComparisonToggled = false;
+    }
+
+    public static getInstance(): World {
+        if (!World.instance) {
+            World.instance = new World();
+        }
+        return World.instance;
     }
 
     public getCurrentGeneration(): Generation {
@@ -158,3 +166,6 @@ export class World {
         });
     }
 }
+
+
+   

@@ -1,21 +1,31 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InteractiveElementsGUI = void 0;
+const World_1 = require("../world/World");
 const RandomSeed_1 = require("../seed/RandomSeed");
+const GenerationLoop_1 = require("../generation/GenerationLoop");
+const CellCountsStatistics_1 = require("../statistics/CellCountsStatistics");
 class InteractiveElementsGUI {
-    constructor(world, generationLoop, cellCountsStatistics) {
-        this.world = world;
-        this.generationLoop = generationLoop;
+    constructor() {
+        this.world = World_1.World.getInstance();
+        this.generationLoop = GenerationLoop_1.GenerationLoop.getInstance();
         this.randomSpawnChance = 0.2; // Set the initial value for randomSpawnChance
         this.stateOn = false;
         this.comparisonModeIsOn = false;
-        this.cellCountsStatistics = cellCountsStatistics;
+        this.cellCountsStatistics = CellCountsStatistics_1.CellCountsStatistics.getInstance();
         this.createSpawnChanceSlider();
         this.createRandomSeedButton();
         this.createStartStopButton();
         this.createToggleComparisonButton();
         this.createSpeedControl();
         this.createClearButton();
+    }
+    // Get the singleton instance
+    static getInstance() {
+        if (!InteractiveElementsGUI.instance) {
+            InteractiveElementsGUI.instance = new InteractiveElementsGUI();
+        }
+        return InteractiveElementsGUI.instance;
     }
     createClearButton() {
         // Create a button to clear the world
@@ -116,3 +126,4 @@ class InteractiveElementsGUI {
     }
 }
 exports.InteractiveElementsGUI = InteractiveElementsGUI;
+InteractiveElementsGUI.instance = null;
